@@ -5,6 +5,7 @@ import Foundation
 func toTOC(read: (stripNewline: Bool) -> String?) -> String {
   var toc: [(level: Int, word: String)] = []
 
+  var prevLine = ""
   while let line = read(stripNewline: true) {
     if line.hasPrefix("```") {
       while true {
@@ -14,9 +15,21 @@ func toTOC(read: (stripNewline: Bool) -> String?) -> String {
         }
       }
     } else {
+      if onlyCharacter(line, expected: Character("=")) {
+        toc.append((level: 1, word: prevLine))
+        continue
+      }
+
+      if onlyCharacter(line, expected: Character("-")) {
+        toc.append((level: 2, word: prevLine))
+        continue
+      }
+      prevLine = line
+
       if !line.hasPrefix("#") {
         continue
       }
+
       var level = 0
       for c in line.characters {
         if c == "#" {
@@ -30,6 +43,18 @@ func toTOC(read: (stripNewline: Bool) -> String?) -> String {
     }
   }
   return buildTOC(toc)
+}
+
+func onlyCharacter(target: String, expected: Character) -> Bool {
+  if target.isEmpty {
+    return false
+  }
+  for c in target.characters {
+    if c != expected {
+      return false
+    }
+  }
+  return true
 }
 
 func buildTOC(toc: [(level: Int, word: String)]) -> String {
