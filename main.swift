@@ -8,10 +8,8 @@ func toTOC(read: (stripNewline: Bool) -> String?) -> String {
   while let line = read(stripNewline: true) {
     if line.hasPrefix("```") {
       while true {
-        guard let nextLine = read(stripNewline: true) else {
-          break
-        }
-        if nextLine == "```" {
+        let nextLine = read(stripNewline: true)
+        if nextLine == nil || nextLine == "```" {
           break
         }
       }
