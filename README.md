@@ -31,5 +31,4 @@ Coming soon....
 
 # TODO
 
-- `-------` and `==========` style header
 - Add link to anchor
