@@ -2,6 +2,12 @@
 
 Table of Contents generator for Markdown.
 
+- [md-toc](#md-toc)
+- [Installation](#installation)
+- [Usage](#usage)
+  - [Basic Usage](#basic-usage)
+  - [Options](#options)
+- [TODO](#todo)
 
 # Installation
 
@@ -17,12 +23,12 @@ $ make
 
 ```sh
 $ md-toc < README.md
--  md-toc
--  Installation
--  Usage
-  -  Basic Usage
-  -  Options
--  TODO
+- [md-toc](#md-toc)
+- [Installation](#installation)
+- [Usage](#usage)
+  - [Basic Usage](#basic-usage)
+  - [Options](#options)
+- [TODO](#todo)
 ```
 
 ## Options
@@ -31,4 +37,4 @@ Coming soon....
 
 # TODO
 
-- Add link to anchor
+- Command line options

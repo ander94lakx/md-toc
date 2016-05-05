@@ -61,16 +61,30 @@ func onlyCharacter(target: String, expected: Character) -> Bool {
 }
 
 func HeaderToAnchor(target: String) -> String {
-  return target
+  var res = ""
+  var isSym = false
+  for c in target.characters {
+    switch c {
+      case "a"..."z", "A"..."Z", "0"..."9":
+        if isSym {
+          res += "-"
+          isSym = false
+        }
+        res += String(c).lowercaseString
+      default:
+        isSym = true
+        break
+    }
+  }
+  return res;
 }
 
 func buildTOC(toc: [(level: Int, word: String)]) -> String {
   var res = ""
   for (level, word) in toc {
-    res += String(count: (level-1) * 2, repeatedValue: Character(" "))
-    res += "- "
-    res += word
-    res += "\n"
+    let anchor = HeaderToAnchor(word)
+    let indent = String(count: (level-1) * 2, repeatedValue: Character(" "))
+    res += "\(indent)- [\(word)](#\(anchor))\n"
   }
   return res
 }
