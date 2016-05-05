@@ -38,7 +38,10 @@ func toTOC(read: (stripNewline: Bool) -> String?) -> String {
           break
         }
       }
-      let word = line[line.startIndex.advancedBy(level)..<line.endIndex]
+      var word = line[line.startIndex.advancedBy(level)..<line.endIndex]
+      while word.hasPrefix(" ") {
+        word = word[word.startIndex.advancedBy(1)..<word.endIndex]
+      }
       toc.append((level: level, word: word))
     }
   }
@@ -55,6 +58,10 @@ func onlyCharacter(target: String, expected: Character) -> Bool {
     }
   }
   return true
+}
+
+func HeaderToAnchor(target: String) -> String {
+  return target
 }
 
 func buildTOC(toc: [(level: Int, word: String)]) -> String {
